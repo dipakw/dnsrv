@@ -109,7 +109,7 @@ func buildResponse(header DNSHeader, question DNSQuestion, records []string) []b
 			Name:  0xC00C, // Name offset
 			Type:  question.QType,
 			Class: question.QClass,
-			TTL:   30, // TTL in seconds
+			TTL:   0, // TTL in seconds
 		}
 
 		switch recordType {
