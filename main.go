@@ -4,9 +4,13 @@ import "dnsrv/dns"
 
 func main() {
 
-	dns.Start(&dns.Config{
+	config := &dns.Config{
 		Host: "0.0.0.0",
 		Port: 53,
-	})
+	}
+
+	config.Load()
+
+	dns.Start(config)
 
 }
