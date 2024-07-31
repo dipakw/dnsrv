@@ -1,5 +1,10 @@
 package dns
 
+type Config struct {
+	Host string
+	Port int
+}
+
 type Header struct {
 	ID      uint16
 	Flags   uint16

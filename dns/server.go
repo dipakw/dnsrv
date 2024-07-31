@@ -5,22 +5,22 @@ import (
 	"net"
 )
 
-func Start() {
+func Start(conf *Config) {
 
 	addr := net.UDPAddr{
-		Port: 53,
-		IP:   net.ParseIP("0.0.0.0"),
+		Port: conf.Port,
+		IP:   net.ParseIP(conf.Host),
 	}
 
 	conn, err := net.ListenUDP("udp", &addr)
 
 	if err != nil {
-		log.Fatalf("Failed to set up UDP listener: %v", err)
+		log.Fatalf("Failed to start: %v", err)
 	}
 
 	defer conn.Close()
 
-	log.Println("DNS server is up and running...")
+	log.Println("Started ..")
 
 	for {
 		buf := make([]byte, 512)
