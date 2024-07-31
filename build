@@ -1,0 +1,7 @@
+#!/bin/env bash
+
+CGO_ENABLED=0 go build -ldflags="-s -w" -o dnsrv
+
+if [ "$1" == "-c" ]; then
+    upx --best --lzma ./dnsrv
+fi
