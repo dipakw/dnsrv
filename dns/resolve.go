@@ -1,10 +1,15 @@
 package dns
 
-func resolve(qtype uint16, qname string) []string {
-	switch qname {
+import (
+	"net"
+)
+
+func resolve(ip net.IP, host string, record uint16) []string {
+
+	switch host {
 
 	case "www.example.com":
-		switch qtype {
+		switch record {
 		case 1:
 			return []string{"A 122.34.56.6"}
 		case 28:

@@ -7,10 +7,13 @@ import (
 
 func handle(conn *net.UDPConn, addr *net.UDPAddr, buf []byte) {
 	// Parse the query to extract the question name and type
-	qname, qtype, qlen := parse(buf)
+	host, record, qlen := parse(buf)
+
+	// Get the client IP address
+	ip := addr.IP
 
 	// Resolve the query using the provided resolve function
-	records := resolve(qtype, qname)
+	records := resolve(ip, host, record)
 
 	// Construct the response DNS header
 	header := Header{
