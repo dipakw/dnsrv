@@ -49,9 +49,9 @@ func response(header Header, question Question, records []string) []byte {
 			answer.Len = uint16(len(cnameBytes))
 			answer.Data = cnameBytes
 		case "MX":
-			parts := strings.Fields(recordData)
-			preference, _ := strconv.Atoi(parts[0])
-			mxName := parts[1]
+			mxParts := strings.Fields(recordData)
+			preference, _ := strconv.Atoi(mxParts[0])
+			mxName := mxParts[1]
 			mxBytes := encodeDNSName(mxName)
 			answer.Len = uint16(len(mxBytes) + 2)
 			answer.Data = make([]byte, 2+len(mxBytes))
@@ -66,11 +66,11 @@ func response(header Header, question Question, records []string) []byte {
 			answer.Len = uint16(len(ptrBytes))
 			answer.Data = ptrBytes
 		case "SRV":
-			parts := strings.Fields(recordData)
-			priority, _ := strconv.Atoi(parts[0])
-			weight, _ := strconv.Atoi(parts[1])
-			port, _ := strconv.Atoi(parts[2])
-			target := parts[3]
+			srvParts := strings.Fields(recordData)
+			priority, _ := strconv.Atoi(srvParts[0])
+			weight, _ := strconv.Atoi(srvParts[1])
+			port, _ := strconv.Atoi(srvParts[2])
+			target := srvParts[3]
 			targetBytes := encodeDNSName(target)
 			answer.Len = uint16(6 + len(targetBytes))
 			answer.Data = make([]byte, 6+len(targetBytes))
@@ -78,6 +78,34 @@ func response(header Header, question Question, records []string) []byte {
 			binary.BigEndian.PutUint16(answer.Data[2:4], uint16(weight))
 			binary.BigEndian.PutUint16(answer.Data[4:6], uint16(port))
 			copy(answer.Data[6:], targetBytes)
+		case "SOA":
+			soaParts := strings.Fields(recordData)
+			mname := encodeDNSName(soaParts[0])
+			rname := encodeDNSName(soaParts[1])
+			serial, _ := strconv.Atoi(soaParts[2])
+			refresh, _ := strconv.Atoi(soaParts[3])
+			retry, _ := strconv.Atoi(soaParts[4])
+			expire, _ := strconv.Atoi(soaParts[5])
+			minimum, _ := strconv.Atoi(soaParts[6])
+
+			soaData := make([]byte, len(mname)+len(rname)+20)
+			offset := 0
+			copy(soaData[offset:], mname)
+			offset += len(mname)
+			copy(soaData[offset:], rname)
+			offset += len(rname)
+			binary.BigEndian.PutUint32(soaData[offset:], uint32(serial))
+			offset += 4
+			binary.BigEndian.PutUint32(soaData[offset:], uint32(refresh))
+			offset += 4
+			binary.BigEndian.PutUint32(soaData[offset:], uint32(retry))
+			offset += 4
+			binary.BigEndian.PutUint32(soaData[offset:], uint32(expire))
+			offset += 4
+			binary.BigEndian.PutUint32(soaData[offset:], uint32(minimum))
+
+			answer.Len = uint16(len(soaData))
+			answer.Data = soaData
 		}
 
 		binary.Write(&buffer, binary.BigEndian, answer.Name)

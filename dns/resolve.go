@@ -25,6 +25,8 @@ func resolve(qtype uint16, qname string) []string {
 			return []string{"PTR ptr.example.com"}
 		case 33:
 			return []string{"SRV 0 5 5060 sip.example.com"}
+		case 6:
+			return []string{"SOA ns1.example.com hostmaster.example.com 2024040801 7200 3600 1209600 3600"}
 		}
 	}
 
