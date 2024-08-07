@@ -24,14 +24,14 @@ func Start(conf *Config) {
 
 	for {
 		buf := make([]byte, 512)
-		n, clientAddr, err := conn.ReadFromUDP(buf)
+		n, addr, err := conn.ReadFromUDP(buf)
 
 		if err != nil {
 			log.Printf("Failed to read from UDP: %v", err)
 			continue
 		}
 
-		go handle(conn, clientAddr, buf[:n])
+		go handle(conn, addr, buf[:n])
 	}
 
 }
