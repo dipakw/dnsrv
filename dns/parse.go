@@ -21,7 +21,7 @@ func parse(packet []byte) (string, uint16, int) {
 		i += length + 1
 	}
 
-	record := binary.BigEndian.Uint16(packet[i+1 : i+3])
+	rectype := binary.BigEndian.Uint16(packet[i+1 : i+3])
 	// 16 bytes header + host + 2 bytes type + 2 bytes class
-	return host, record, i + 5
+	return host, rectype, i + 5
 }

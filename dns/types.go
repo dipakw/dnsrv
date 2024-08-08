@@ -28,3 +28,8 @@ type Answer struct {
 	Len   uint16
 	Data  []byte
 }
+
+type Record struct {
+	Answers []string
+	TTL     uint32
+}

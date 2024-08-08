@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func response(header Header, question Question, records []string) []byte {
+func response(header Header, question Question, record *Record) []byte {
 	var buffer bytes.Buffer
 
 	// Write DNS Header
@@ -20,36 +20,36 @@ func response(header Header, question Question, records []string) []byte {
 	binary.Write(&buffer, binary.BigEndian, question.QClass)
 
 	// Write DNS Answers
-	for _, record := range records {
-		parts := strings.Fields(record)
-		recordType := parts[0]
-		recordData := strings.Join(parts[1:], " ")
+	for _, ans := range record.Answers {
+		parts := strings.Fields(ans)
+		ansType := parts[0]
+		ansData := strings.Join(parts[1:], " ")
 
 		answer := Answer{
 			Name:  0xC00C, // Name offset
 			Type:  question.QType,
 			Class: question.QClass,
-			TTL:   0, // TTL in seconds
+			TTL:   record.TTL, // TTL in seconds
 		}
 
-		switch recordType {
+		switch ansType {
 		case "A":
 			answer.Len = 4
 			answer.Data = make([]byte, 4)
-			binary.BigEndian.PutUint32(answer.Data, inetATon(recordData))
+			binary.BigEndian.PutUint32(answer.Data, inetATon(ansData))
 		case "AAAA":
 			answer.Len = 16
-			answer.Data = net.ParseIP(recordData).To16()
+			answer.Data = net.ParseIP(ansData).To16()
 		case "TXT":
-			txtBytes := []byte(recordData)
+			txtBytes := []byte(ansData)
 			answer.Len = uint16(len(txtBytes) + 1)
 			answer.Data = append([]byte{uint8(len(txtBytes))}, txtBytes...)
 		case "CNAME":
-			cnameBytes := encodeDNSName(recordData)
+			cnameBytes := encodeDNSName(ansData)
 			answer.Len = uint16(len(cnameBytes))
 			answer.Data = cnameBytes
 		case "MX":
-			mxParts := strings.Fields(recordData)
+			mxParts := strings.Fields(ansData)
 			preference, _ := strconv.Atoi(mxParts[0])
 			mxName := mxParts[1]
 			mxBytes := encodeDNSName(mxName)
@@ -58,15 +58,15 @@ func response(header Header, question Question, records []string) []byte {
 			binary.BigEndian.PutUint16(answer.Data[:2], uint16(preference))
 			copy(answer.Data[2:], mxBytes)
 		case "NS":
-			nsBytes := encodeDNSName(recordData)
+			nsBytes := encodeDNSName(ansData)
 			answer.Len = uint16(len(nsBytes))
 			answer.Data = nsBytes
 		case "PTR":
-			ptrBytes := encodeDNSName(recordData)
+			ptrBytes := encodeDNSName(ansData)
 			answer.Len = uint16(len(ptrBytes))
 			answer.Data = ptrBytes
 		case "SRV":
-			srvParts := strings.Fields(recordData)
+			srvParts := strings.Fields(ansData)
 			priority, _ := strconv.Atoi(srvParts[0])
 			weight, _ := strconv.Atoi(srvParts[1])
 			port, _ := strconv.Atoi(srvParts[2])
@@ -79,7 +79,7 @@ func response(header Header, question Question, records []string) []byte {
 			binary.BigEndian.PutUint16(answer.Data[4:6], uint16(port))
 			copy(answer.Data[6:], targetBytes)
 		case "SOA":
-			soaParts := strings.Fields(recordData)
+			soaParts := strings.Fields(ansData)
 			mname := encodeDNSName(soaParts[0])
 			rname := encodeDNSName(soaParts[1])
 			serial, _ := strconv.Atoi(soaParts[2])
