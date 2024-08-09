@@ -7,6 +7,8 @@ import (
 
 func Start(conf *Config) {
 
+	conf.Load()
+
 	addr := net.UDPAddr{
 		Port: conf.Port,
 		IP:   net.ParseIP(conf.Host),

@@ -10,8 +10,6 @@ func main() {
 		Zones: []string{"./zones.d"},
 	}
 
-	config.Load()
-
 	dns.Start(config)
 
 }
