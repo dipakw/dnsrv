@@ -1,14 +1,26 @@
 GOOS=darwin GOARCH=amd64 go build -o dnsrv.mac.bin
 
+## Supported records
+
+1. SOA
+2. A
+3. AAAA
+4. TXT
+5. CNAME
+6. MX
+7. NS
+8. PTR
+9. SRV
+
 Example zone:
 
 ```yaml
-zone: example.com.
+zone: example.com
 
 records:
   SOA:
-    name: "ns1.example.com."
-    admin: "admin.example.com."
+    name: "ns1.example.com"
+    admin: "admin.example.com"
     serial: 2024080901
     refresh: 3600
     retry: 1800
@@ -20,8 +32,16 @@ records:
       default:
         ttl: 0
         values:
-          - "ns1.example.com."
-          - "ns2.example.com."
+          - "ns1.example.com"
+          - "ns2.example.com"
+
+  MX:
+    _@:
+      default:
+        ttl: 0
+        values:
+          - "10 mail1.example.com"
+          - "10 mail2.example.com"
 
   A:
     _@:
@@ -35,16 +55,18 @@ records:
           ttl: 0
           values:
             - 193.168.0.3
-          
-        NS_OV:
-          ttl: 0
-          values:
-            - 193.168.0.4
-        
-        EU_DE:
-          ttl: 0
-          values:
-            - 193.168.0.5
+
+    www:
+      default:
+        ttl: 0
+        values:
+          - 133.168.0.2
+
+    dash:
+      default:
+        ttl: 0
+        values:
+          - 167.23.4.24
 
   AAAA:
     _@:
