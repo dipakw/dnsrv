@@ -3,7 +3,7 @@ package dns
 type Config struct {
 	Host  string
 	Port  int
-	Zones string
+	Zones []string
 }
 
 type Header struct {
