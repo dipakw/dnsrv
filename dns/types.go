@@ -1,8 +1,9 @@
 package dns
 
 type Config struct {
-	Host string
-	Port int
+	Host  string
+	Port  int
+	Zones string
 }
 
 type Header struct {
@@ -29,7 +30,41 @@ type Answer struct {
 	Data  []byte
 }
 
+// -- FOR ZONE FILE -- //
+
+type SOA struct {
+	Name    string
+	Admin   string
+	Serial  uint32
+	Refresh uint32
+	Retry   uint32
+	Expire  uint32
+	Minimum uint32
+}
+
+type Entry struct {
+	TTL    uint32
+	Values []string
+}
+
 type Record struct {
-	Answers []string
-	TTL     uint32
+	Default *Entry
+	Regions map[string]*Entry
+}
+
+type Records struct {
+	SOA   *SOA
+	NS    map[string]*Record
+	A     map[string]*Record
+	AAAA  map[string]*Record
+	TXT   map[string]*Record
+	CNAME map[string]*Record
+	MX    map[string]*Record
+	PTR   map[string]*Record
+	SRV   map[string]*Record
+}
+
+type Zone struct {
+	Zone    string
+	Records *Records
 }

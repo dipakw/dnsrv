@@ -5,8 +5,9 @@ import "dnsrv/dns"
 func main() {
 
 	config := &dns.Config{
-		Host: "0.0.0.0",
-		Port: 53,
+		Host:  "0.0.0.0",
+		Port:  53,
+		Zones: "./zones.d",
 	}
 
 	config.Load()

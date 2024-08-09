@@ -13,14 +13,14 @@ func handle(conn *net.UDPConn, addr *net.UDPAddr, buf []byte) {
 	ip := addr.IP
 
 	// Resolve the query using the provided resolve function
-	record := resolve(ip, host, rectype)
+	entry := resolve(ip, host, rectype)
 
 	// Construct the response DNS header
 	header := Header{
 		ID:      binary.BigEndian.Uint16(buf[0:2]),
 		Flags:   0x8180, // Standard query response, no error
 		QDCount: 1,
-		ANCount: uint16(len(record.Answers)),
+		ANCount: uint16(len(entry.Values)),
 		NSCount: 0,
 		ARCount: 0,
 	}
@@ -33,7 +33,7 @@ func handle(conn *net.UDPConn, addr *net.UDPAddr, buf []byte) {
 	}
 
 	// Create the response packet
-	response := response(header, question, record)
+	response := response(header, question, entry)
 
 	// Send the response
 	conn.WriteToUDP(response, addr)

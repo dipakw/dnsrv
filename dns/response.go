@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func response(header Header, question Question, record *Record) []byte {
+func response(header Header, question Question, entry *Entry) []byte {
 	var buffer bytes.Buffer
 
 	// Write DNS Header
@@ -20,8 +20,8 @@ func response(header Header, question Question, record *Record) []byte {
 	binary.Write(&buffer, binary.BigEndian, question.QClass)
 
 	// Write DNS Answers
-	for _, ans := range record.Answers {
-		parts := strings.Fields(ans)
+	for _, value := range entry.Values {
+		parts := strings.Fields(value)
 		ansType := parts[0]
 		ansData := strings.Join(parts[1:], " ")
 
@@ -29,7 +29,7 @@ func response(header Header, question Question, record *Record) []byte {
 			Name:  0xC00C, // Name offset
 			Type:  question.QType,
 			Class: question.QClass,
-			TTL:   record.TTL, // TTL in seconds
+			TTL:   entry.TTL, // TTL in seconds
 		}
 
 		switch ansType {
