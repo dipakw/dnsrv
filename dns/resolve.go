@@ -3,13 +3,31 @@ package dns
 import (
 	"fmt"
 	"net"
+	"strings"
 )
 
 func resolve(ip net.IP, host string, rectype uint16) *Entry {
 
-	zkey := host
-	zone := zones[zkey]
 	name := "_@"
+	zone := zones[host]
+
+	if zone == nil {
+		parts := strings.Split(host, ".")
+		lenth := len(parts)
+
+		for i := 1; i <= lenth; i++ {
+			if i == lenth {
+				continue
+			}
+
+			name = strings.Join(parts[0:i], ".")
+			zone = zones[strings.Join(parts[i:lenth], ".")]
+
+			if zone != nil {
+				break
+			}
+		}
+	}
 
 	var record *Record = nil
 	var soa *SOA = nil
