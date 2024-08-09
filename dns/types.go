@@ -33,38 +33,39 @@ type Answer struct {
 // -- FOR ZONE FILE -- //
 
 type SOA struct {
-	Name    string
-	Admin   string
-	Serial  uint32
-	Refresh uint32
-	Retry   uint32
-	Expire  uint32
-	Minimum uint32
+	Name    string `yaml:"name"`
+	Admin   string `yaml:"admin"`
+	Serial  uint32 `yaml:"serial"`
+	Refresh uint32 `yaml:"refresh"`
+	Retry   uint32 `yaml:"retry"`
+	Expire  uint32 `yaml:"expire"`
+	Minimum uint32 `yaml:"minimum"`
 }
 
 type Entry struct {
-	TTL    uint32
-	Values []string
+	TTL    uint32   `yaml:"ttl"`
+	Values []string `yaml:"values"`
+	Type   uint16   `yaml:"-"`
 }
 
 type Record struct {
-	Default *Entry
-	Regions map[string]*Entry
+	Default *Entry            `yaml:"default"`
+	Regions map[string]*Entry `yaml:"regions"`
 }
 
 type Records struct {
-	SOA   *SOA
-	NS    map[string]*Record
-	A     map[string]*Record
-	AAAA  map[string]*Record
-	TXT   map[string]*Record
-	CNAME map[string]*Record
-	MX    map[string]*Record
-	PTR   map[string]*Record
-	SRV   map[string]*Record
+	SOA   *SOA               `yaml:"SOA"`
+	NS    map[string]*Record `yaml:"NS"`
+	A     map[string]*Record `yaml:"A"`
+	AAAA  map[string]*Record `yaml:"AAAA"`
+	TXT   map[string]*Record `yaml:"TXT"`
+	CNAME map[string]*Record `yaml:"CNAME"`
+	MX    map[string]*Record `yaml:"MX"`
+	PTR   map[string]*Record `yaml:"PTR"`
+	SRV   map[string]*Record `yaml:"SRV"`
 }
 
 type Zone struct {
-	Zone    string
-	Records *Records
+	Zone    string   `yaml:"zone"`
+	Records *Records `yaml:"records"`
 }

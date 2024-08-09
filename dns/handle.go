@@ -15,6 +15,13 @@ func handle(conn *net.UDPConn, addr *net.UDPAddr, buf []byte) {
 	// Resolve the query using the provided resolve function
 	entry := resolve(ip, host, rectype)
 
+	if entry == nil {
+		entry = &Entry{
+			TTL:    0,
+			Values: []string{},
+		}
+	}
+
 	// Construct the response DNS header
 	header := Header{
 		ID:      binary.BigEndian.Uint16(buf[0:2]),

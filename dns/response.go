@@ -21,9 +21,7 @@ func response(header Header, question Question, entry *Entry) []byte {
 
 	// Write DNS Answers
 	for _, value := range entry.Values {
-		parts := strings.Fields(value)
-		ansType := parts[0]
-		ansData := strings.Join(parts[1:], " ")
+		ansData := value
 
 		answer := Answer{
 			Name:  0xC00C, // Name offset
@@ -32,23 +30,23 @@ func response(header Header, question Question, entry *Entry) []byte {
 			TTL:   entry.TTL, // TTL in seconds
 		}
 
-		switch ansType {
-		case "A":
+		switch entry.Type {
+		case 1:
 			answer.Len = 4
 			answer.Data = make([]byte, 4)
 			binary.BigEndian.PutUint32(answer.Data, inetATon(ansData))
-		case "AAAA":
+		case 28:
 			answer.Len = 16
 			answer.Data = net.ParseIP(ansData).To16()
-		case "TXT":
+		case 16:
 			txtBytes := []byte(ansData)
 			answer.Len = uint16(len(txtBytes) + 1)
 			answer.Data = append([]byte{uint8(len(txtBytes))}, txtBytes...)
-		case "CNAME":
+		case 5:
 			cnameBytes := encodeDNSName(ansData)
 			answer.Len = uint16(len(cnameBytes))
 			answer.Data = cnameBytes
-		case "MX":
+		case 15:
 			mxParts := strings.Fields(ansData)
 			preference, _ := strconv.Atoi(mxParts[0])
 			mxName := mxParts[1]
@@ -57,15 +55,15 @@ func response(header Header, question Question, entry *Entry) []byte {
 			answer.Data = make([]byte, 2+len(mxBytes))
 			binary.BigEndian.PutUint16(answer.Data[:2], uint16(preference))
 			copy(answer.Data[2:], mxBytes)
-		case "NS":
+		case 2:
 			nsBytes := encodeDNSName(ansData)
 			answer.Len = uint16(len(nsBytes))
 			answer.Data = nsBytes
-		case "PTR":
+		case 12:
 			ptrBytes := encodeDNSName(ansData)
 			answer.Len = uint16(len(ptrBytes))
 			answer.Data = ptrBytes
-		case "SRV":
+		case 33:
 			srvParts := strings.Fields(ansData)
 			priority, _ := strconv.Atoi(srvParts[0])
 			weight, _ := strconv.Atoi(srvParts[1])
@@ -78,7 +76,7 @@ func response(header Header, question Question, entry *Entry) []byte {
 			binary.BigEndian.PutUint16(answer.Data[2:4], uint16(weight))
 			binary.BigEndian.PutUint16(answer.Data[4:6], uint16(port))
 			copy(answer.Data[6:], targetBytes)
-		case "SOA":
+		case 6:
 			soaParts := strings.Fields(ansData)
 			mname := encodeDNSName(soaParts[0])
 			rname := encodeDNSName(soaParts[1])
