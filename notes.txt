@@ -1,0 +1,103 @@
+package dns
+
+import (
+	"net"
+)
+
+func resolve(ip net.IP, host string, record uint16) []string {
+
+	switch host {
+
+	case "www.example.com":
+		switch record {
+		case 1:
+			return []string{"122.34.56.6"}
+		case 28:
+			return []string{"2001:0db8:85a3:0000:0000:8a2e:0370:7334"}
+		case 16:
+			return []string{"v=spf1 include:_spf.example.com ~all"}
+		case 5:
+			return []string{"example.com"}
+		case 15:
+			return []string{
+				"10 mail1.example.com",
+				"20 mail2.example.com",
+				"50 mail3.example.com",
+			}
+		case 2:
+			return []string{"ns1.example.com"}
+		case 12:
+			return []string{"ptr.example.com"}
+		case 33:
+			return []string{"0 5 5060 sip.example.com"}
+		case 6:
+			return []string{"ns1.example.com hostmaster.example.com 2024040801 7200 3600 1209600 3600"}
+		}
+	}
+
+	return []string{}
+}
+
+package dns
+
+import (
+	"net"
+)
+
+func resolve(ip net.IP, host string, record uint16) []string {
+
+	switch host {
+
+	case "www.example.com":
+		switch record {
+		case 1:
+			return []string{"122.34.56.6"}
+		case 28:
+			return []string{"2001:0db8:85a3:0000:0000:8a2e:0370:7334"}
+		case 16:
+			return []string{"v=spf1 include:_spf.example.com ~all"}
+		case 5:
+			return []string{"example.com"}
+		case 15:
+			return []string{
+				"10 mail1.example.com",
+				"20 mail2.example.com",
+				"50 mail3.example.com",
+			}
+		case 2:
+			return []string{"ns1.example.com"}
+		case 12:
+			return []string{"ptr.example.com"}
+		case 33:
+			return []string{"0 5 5060 sip.example.com"}
+		case 6:
+			return []string{"ns1.example.com hostmaster.example.com 2024040801 7200 3600 1209600 3600"}
+		case 257: // CAA
+			return []string{"0 issue \"letsencrypt.org\""}
+		case 37: // CERT
+			return []string{"type=1, key tag=1234, algorithm=2, certificate=MIIBIjANBg..."}
+		case 48: // DNSKEY
+			return []string{"256 3 8 AwEAAaz/tAm8yQ..."}
+		case 43: // DS
+			return []string{"12345 3 2 49FD46E6C4B45C55D4AC..."}
+		case 65: // HTTPS
+			return []string{"1 . alpn=h2,h3"}
+		case 29: // LOC
+			return []string{"52 22 17.018 N 4 53 26.322 E 0.00m 2m 10000m 10m"}
+		case 35: // NAPTR
+			return []string{"100 10 \"U\" \"E2U+sip\" \"!^.*$!sip:customer-service@example.com!\" ."}
+		case 53: // SMIMEA
+			return []string{"3 1 1 aabbccddeeff..."}
+		case 44: // SSHFP
+			return []string{"1 1 123456789abcdef67890123456789abcdef67890"}
+		case 64: // SVCB
+			return []string{"1 . alpn=h2"}
+		case 52: // TLSA
+			return []string{"3 1 1 aabbccddeeff..."}
+		case 256: // URI
+			return []string{"1 1 \"https://www.example.com/welcome\""}
+		}
+	}
+
+	return []string{}
+}
