@@ -8,7 +8,7 @@ func (r *SRV) Encode() []*Answer {
 	answers := []*Answer{}
 
 	for _, rec := range r.Records {
-		tbytes := []byte(rec.Target)
+		tbytes := encodeDNSName(rec.Target)
 
 		answer := &Answer{
 			Name:  0xC00C,
