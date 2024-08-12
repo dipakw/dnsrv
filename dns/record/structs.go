@@ -79,3 +79,12 @@ type SRV struct {
 		Target   string `yaml:"target"`
 	} `yaml:"records"`
 }
+
+type CAA struct {
+	Records []struct {
+		TTL   uint32 `yaml:"ttl"`
+		Flag  uint8  `yaml:"flag"`
+		Tag   string `yaml:"tag"`
+		Value string `yaml:"value"`
+	} `yaml:"records"`
+}

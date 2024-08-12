@@ -11,10 +11,10 @@ GOOS=darwin GOARCH=amd64 go build -o dnsrv.mac.bin
 7. NS
 8. PTR
 9. SRV
+10. CAA
 
 ## Unsupported records
 
-1. CAA
 2. CERT
 3. DNSKEY
 4. DS

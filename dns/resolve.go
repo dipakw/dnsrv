@@ -65,6 +65,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.SRV[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 257:
+			if record := zone.Records.CAA[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 

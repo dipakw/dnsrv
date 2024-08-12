@@ -43,6 +43,7 @@ type Records struct {
 	NS    map[string]*Record[record.NS]    `yaml:"NS"`
 	PTR   map[string]*Record[record.PTR]   `yaml:"PTR"`
 	SRV   map[string]*Record[record.SRV]   `yaml:"SRV"`
+	CAA   map[string]*Record[record.CAA]   `yaml:"CAA"`
 }
 
 type Zone struct {
