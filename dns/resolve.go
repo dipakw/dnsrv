@@ -9,7 +9,7 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 
 	name := "_@"
 	zone := zones[host]
-	regn := "US"
+	regn := Geo(ip)
 
 	if zone == nil {
 		parts := strings.Split(host, ".")
