@@ -10,7 +10,7 @@ func (r *SOA) Encode() []*Answer {
 		Name:  0xC00C,
 		Type:  6,
 		Class: 1,
-		TTL:   0,
+		TTL:   r.TTL,
 		Data:  make([]byte, len(name)+len(admn)+20),
 	}
 

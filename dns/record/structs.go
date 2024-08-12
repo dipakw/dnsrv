@@ -19,6 +19,7 @@ type SOA struct {
 	Retry   uint32 `yaml:"retry"`
 	Expire  uint32 `yaml:"expire"`
 	Minimum uint32 `yaml:"minimum"`
+	TTL     uint32 `yaml:"ttl"`
 }
 
 type A struct {

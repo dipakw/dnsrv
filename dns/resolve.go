@@ -40,16 +40,47 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			}
 		}
 
-		/*recsmap := map[uint16]map[string]*Record{
-			1:  zone.Records.A,
-			28: zone.Records.AAAA,
-			16: zone.Records.TXT,
-			5:  zone.Records.CNAME,
-			15: zone.Records.MX,
-			2:  zone.Records.NS,
-			12: zone.Records.PTR,
-			33: zone.Records.SRV,
-		} */
+		if rectype == 28 {
+			if entry, ok := zone.Records.AAAA[name]; ok {
+				return entry.Default
+			}
+		}
+
+		if rectype == 16 {
+			if entry, ok := zone.Records.TXT[name]; ok {
+				return entry.Default
+			}
+		}
+
+		if rectype == 5 {
+			if entry, ok := zone.Records.CNAME[name]; ok {
+				return entry.Default
+			}
+		}
+
+		if rectype == 15 {
+			if entry, ok := zone.Records.MX[name]; ok {
+				return entry.Default
+			}
+		}
+
+		if rectype == 2 {
+			if entry, ok := zone.Records.NS[name]; ok {
+				return entry.Default
+			}
+		}
+
+		if rectype == 12 {
+			if entry, ok := zone.Records.PTR[name]; ok {
+				return entry.Default
+			}
+		}
+
+		if rectype == 33 {
+			if entry, ok := zone.Records.SRV[name]; ok {
+				return entry.Default
+			}
+		}
 
 	}
 
