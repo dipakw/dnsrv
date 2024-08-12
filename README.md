@@ -41,52 +41,80 @@ records:
     retry: 1800
     expire: 1209600
     minimum: 86400
-
-  NS:
-    _@:
-      default:
-        ttl: 0
-        values:
-          - "ns1.example.com"
-          - "ns2.example.com"
-
-  MX:
-    _@:
-      default:
-        ttl: 0
-        values:
-          - "10 mail1.example.com"
-          - "10 mail2.example.com"
+    ttl: 0
 
   A:
     _@:
       default:
-        ttl: 0
-        values:
-          - 193.168.0.2
+        records:
+          - ttl: 0
+            ipv4: 193.168.0.2
 
-      regions:
-        NA_US:
-          ttl: 0
-          values:
-            - 193.168.0.3
-
-    www:
-      default:
-        ttl: 0
-        values:
-          - 133.168.0.2
-
-    dash:
-      default:
-        ttl: 0
-        values:
-          - 167.23.4.24
+          - ttl: 0
+            ipv4: 193.168.0.3
 
   AAAA:
     _@:
       default:
+        records:
+          - ttl: 0
+            ipv6: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+
+  TXT:
+    _@:
+      default:
+        records:
+          - ttl: 0
+            value: "I am here!"
+
+          - ttl: 0
+            value: APIKEYGOESHERE
+
+  CNAME:
+    _@:
+      default:
         ttl: 0
-        values:
-          - 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+        target: www.woo.com
+
+  MX:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            priority: 5
+            server: mail1.woo.com
+
+          - ttl: 2
+            priority: 10
+            server: mail2.woo.com
+
+  NS:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            server: ns1.woo.com
+
+          - ttl: 2
+            server: ns2.woo.com
+
+  PTR:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            domain: ptr1.woo.com
+
+          - ttl: 2
+            domain: ptr2.woo.com
+
+  SRV:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            target: sip1.woo.com
+            priority: 100
+            weight: 101
+            port: 7767
 ```
