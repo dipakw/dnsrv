@@ -88,3 +88,13 @@ type CAA struct {
 		Value string `yaml:"value"`
 	} `yaml:"records"`
 }
+
+type CERT struct {
+	Records []struct {
+		TTL    uint32 `yaml:"ttl"`
+		Type   uint16 `yaml:"type"`
+		KeyTag uint16 `yaml:"keytag"`
+		Algo   uint8  `yaml:"algo"`
+		Cert   string `yaml:"cert"`
+	} `yaml:"records"`
+}

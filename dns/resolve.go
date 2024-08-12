@@ -69,6 +69,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.CAA[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 37:
+			if record := zone.Records.CERT[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 

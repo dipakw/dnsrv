@@ -44,6 +44,7 @@ type Records struct {
 	PTR   map[string]*Record[record.PTR]   `yaml:"PTR"`
 	SRV   map[string]*Record[record.SRV]   `yaml:"SRV"`
 	CAA   map[string]*Record[record.CAA]   `yaml:"CAA"`
+	CERT  map[string]*Record[record.CERT]  `yaml:"CERT"`
 }
 
 type Zone struct {

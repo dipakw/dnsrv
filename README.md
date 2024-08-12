@@ -12,20 +12,20 @@ GOOS=darwin GOARCH=amd64 go build -o dnsrv.mac.bin
 8. PTR
 9. SRV
 10. CAA
+11. CERT
 
 ## Unsupported records
 
-2. CERT
-3. DNSKEY
-4. DS
-5. HTTPS
-6. LOC
-7. NAPTR
-8. SMIMEA
-9. SSHFP
-10. SVCB
-11. TLSA
-12. URI
+1. DNSKEY
+2. DS
+3. HTTPS
+4. LOC
+5. NAPTR
+6. SMIMEA
+7. SSHFP
+8. SVCB
+9. TLSA
+10. URI
 
 Example zone:
 
