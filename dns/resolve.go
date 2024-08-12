@@ -30,92 +30,51 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 	}
 
 	if zone != nil {
-
-		if rectype == 6 {
+		switch rectype {
+		case 6:
 			return zone.Records.SOA
-		}
-
-		if rectype == 1 {
-			if entry, ok := zone.Records.A[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
+		case 1:
+			if record := zone.Records.A[name]; record != nil {
+				return record.Resolve(regn)
+			}
+		case 28:
+			if record := zone.Records.AAAA[name]; record != nil {
+				return record.Resolve(regn)
+			}
+		case 16:
+			if record := zone.Records.TXT[name]; record != nil {
+				return record.Resolve(regn)
+			}
+		case 5:
+			if record := zone.Records.CNAME[name]; record != nil {
+				return record.Resolve(regn)
+			}
+		case 15:
+			if record := zone.Records.MX[name]; record != nil {
+				return record.Resolve(regn)
+			}
+		case 2:
+			if record := zone.Records.NS[name]; record != nil {
+				return record.Resolve(regn)
+			}
+		case 12:
+			if record := zone.Records.PTR[name]; record != nil {
+				return record.Resolve(regn)
+			}
+		case 33:
+			if record := zone.Records.SRV[name]; record != nil {
+				return record.Resolve(regn)
 			}
 		}
-
-		if rectype == 28 {
-			if entry, ok := zone.Records.AAAA[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
-			}
-		}
-
-		if rectype == 16 {
-			if entry, ok := zone.Records.TXT[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
-			}
-		}
-
-		if rectype == 5 {
-			if entry, ok := zone.Records.CNAME[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
-			}
-		}
-
-		if rectype == 15 {
-			if entry, ok := zone.Records.MX[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
-			}
-		}
-
-		if rectype == 2 {
-			if entry, ok := zone.Records.NS[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
-			}
-		}
-
-		if rectype == 12 {
-			if entry, ok := zone.Records.PTR[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
-			}
-		}
-
-		if rectype == 33 {
-			if entry, ok := zone.Records.SRV[name]; ok {
-				if regional, ok := entry.Regions[regn]; ok {
-					return regional
-				}
-
-				return entry.Default
-			}
-		}
-
 	}
 
 	return nil
+}
+
+func (r *Record[T]) Resolve(region string) *T {
+	if regional, ok := r.Regions[region]; ok {
+		return regional
+	}
+
+	return r.Default
 }

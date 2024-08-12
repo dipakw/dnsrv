@@ -27,48 +27,22 @@ type Entry interface {
 	Encode() []*record.Answer
 }
 
+type Record[T any] struct {
+	Default *T            `yaml:"default"`
+	Regions map[string]*T `yaml:"regions"`
+}
+
 type Records struct {
 	SOA *record.SOA `yaml:"SOA"`
 
-	A map[string]struct {
-		Default *record.A            `yaml:"default"`
-		Regions map[string]*record.A `yaml:"regions"`
-	} `yaml:"A"`
-
-	AAAA map[string]struct {
-		Default *record.AAAA            `yaml:"default"`
-		Regions map[string]*record.AAAA `yaml:"regions"`
-	} `yaml:"AAAA"`
-
-	TXT map[string]struct {
-		Default *record.TXT            `yaml:"default"`
-		Regions map[string]*record.TXT `yaml:"regions"`
-	} `yaml:"TXT"`
-
-	CNAME map[string]struct {
-		Default *record.CNAME            `yaml:"default"`
-		Regions map[string]*record.CNAME `yaml:"regions"`
-	} `yaml:"CNAME"`
-
-	MX map[string]struct {
-		Default *record.MX            `yaml:"default"`
-		Regions map[string]*record.MX `yaml:"regions"`
-	} `yaml:"MX"`
-
-	NS map[string]struct {
-		Default *record.NS            `yaml:"default"`
-		Regions map[string]*record.NS `yaml:"regions"`
-	} `yaml:"NS"`
-
-	PTR map[string]struct {
-		Default *record.PTR            `yaml:"default"`
-		Regions map[string]*record.PTR `yaml:"regions"`
-	} `yaml:"PTR"`
-
-	SRV map[string]struct {
-		Default *record.SRV            `yaml:"default"`
-		Regions map[string]*record.SRV `yaml:"regions"`
-	} `yaml:"SRV"`
+	A     map[string]*Record[record.A]     `yaml:"A"`
+	AAAA  map[string]*Record[record.AAAA]  `yaml:"AAAA"`
+	TXT   map[string]*Record[record.TXT]   `yaml:"TXT"`
+	CNAME map[string]*Record[record.CNAME] `yaml:"CNAME"`
+	MX    map[string]*Record[record.MX]    `yaml:"MX"`
+	NS    map[string]*Record[record.NS]    `yaml:"NS"`
+	PTR   map[string]*Record[record.PTR]   `yaml:"PTR"`
+	SRV   map[string]*Record[record.SRV]   `yaml:"SRV"`
 }
 
 type Zone struct {
