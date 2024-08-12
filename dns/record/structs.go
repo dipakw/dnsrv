@@ -23,58 +23,58 @@ type SOA struct {
 
 type A struct {
 	Records []struct {
-		TTL  uint32
-		IPv4 string
-	}
+		TTL  uint32 `yaml:"ttl"`
+		IPv4 string `yaml:"ipv4"`
+	} `yaml:"records"`
 }
 
 type AAAA struct {
 	Records []struct {
-		TTL  uint32
-		IPv6 string
-	}
+		TTL  uint32 `yaml:"ttl"`
+		IPv6 string `yaml:"ipv6"`
+	} `yaml:"records"`
 }
 
 type TXT struct {
 	Records []struct {
-		TTL   uint32
-		Value string
-	}
+		TTL   uint32 `yaml:"ttl"`
+		Value string `yaml:"value"`
+	} `yaml:"records"`
 }
 
 type CNAME struct {
-	TTL    uint32
-	Target string
+	TTL    uint32 `yaml:"ttl"`
+	Target string `yaml:"target"`
 }
 
 type MX struct {
 	Records []struct {
-		TTL      uint32
-		Priority uint16
-		Server   string
-	}
+		TTL      uint32 `yaml:"ttl"`
+		Priority uint16 `yaml:"priority"`
+		Server   string `yaml:"server"`
+	} `yaml:"records"`
 }
 
 type NS struct {
 	Records []struct {
-		TTL    uint32
-		Server string
-	}
+		TTL    uint32 `yaml:"ttl"`
+		Server string `yaml:"server"`
+	} `yaml:"records"`
 }
 
 type PTR struct {
 	Records []struct {
-		TTL    uint32
-		Domain string
-	}
+		TTL    uint32 `yaml:"ttl"`
+		Domain string `yaml:"domain"`
+	} `yaml:"records"`
 }
 
 type SRV struct {
 	Records []struct {
-		TTL      uint32
-		Priority uint16
-		Weight   uint16
-		Port     uint16
-		Target   string
-	}
+		TTL      uint32 `yaml:"ttl"`
+		Priority uint16 `yaml:"priority"`
+		Weight   uint16 `yaml:"weight"`
+		Port     uint16 `yaml:"port"`
+		Target   string `yaml:"target"`
+	} `yaml:"records"`
 }

@@ -1,6 +1,7 @@
 package dns
 
 import (
+	"dnsrv/dns/record"
 	"encoding/binary"
 	"net"
 )
@@ -14,12 +15,10 @@ func handle(conn *net.UDPConn, addr *net.UDPAddr, buf []byte) {
 
 	// Resolve the query using the provided resolve function
 	entry := resolve(ip, host, rectype)
+	ansrs := []*record.Answer{}
 
-	if entry == nil {
-		entry = &Entry{
-			TTL:    0,
-			Values: []string{},
-		}
+	if entry != nil {
+		ansrs = entry.Encode()
 	}
 
 	// Construct the response DNS header
@@ -27,7 +26,7 @@ func handle(conn *net.UDPConn, addr *net.UDPAddr, buf []byte) {
 		ID:      binary.BigEndian.Uint16(buf[0:2]),
 		Flags:   0x8180, // Standard query response, no error
 		QDCount: 1,
-		ANCount: uint16(len(entry.Values)),
+		ANCount: uint16(len(ansrs)),
 		NSCount: 0,
 		ARCount: 0,
 	}
@@ -40,7 +39,7 @@ func handle(conn *net.UDPConn, addr *net.UDPAddr, buf []byte) {
 	}
 
 	// Create the response packet
-	response := response(header, question, entry)
+	response := response(header, question, ansrs)
 
 	// Send the response
 	conn.WriteToUDP(response, addr)
