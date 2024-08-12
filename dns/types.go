@@ -34,6 +34,11 @@ type Records struct {
 		Default *record.A            `yaml:"default"`
 		Regions map[string]*record.A `yaml:"regions"`
 	} `yaml:"A"`
+
+	AAAA map[string]struct {
+		Default *record.AAAA            `yaml:"default"`
+		Regions map[string]*record.AAAA `yaml:"regions"`
+	} `yaml:"AAAA"`
 }
 
 type Zone struct {

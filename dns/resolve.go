@@ -30,6 +30,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 
 	if zone != nil {
 
+		if rectype == 6 {
+			return zone.Records.SOA
+		}
+
 		if rectype == 1 {
 			if entry, ok := zone.Records.A[name]; ok {
 				return entry.Default
