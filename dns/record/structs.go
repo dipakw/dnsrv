@@ -68,3 +68,13 @@ type PTR struct {
 		Domain string
 	}
 }
+
+type SRV struct {
+	Records []struct {
+		TTL      uint32
+		Priority uint16
+		Weight   uint16
+		Port     uint16
+		Target   string
+	}
+}
