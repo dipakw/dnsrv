@@ -10,7 +10,7 @@ func (r *MX) Encode() []*Answer {
 			Name:  0xC00C,
 			Type:  15,
 			Class: 1,
-			TTL:   r.TTL,
+			TTL:   rec.TTL,
 		}
 
 		mxBytes := encodeDNSName(rec.Server)

@@ -22,40 +22,49 @@ type SOA struct {
 }
 
 type A struct {
-	IPv4 []string
-	TTL  uint32
+	Records []struct {
+		TTL  uint32
+		IPv4 string
+	}
 }
 
 type AAAA struct {
-	IPv6 []string
-	TTL  uint32
+	Records []struct {
+		TTL  uint32
+		IPv6 string
+	}
 }
 
 type TXT struct {
-	Values []string
-	TTL    uint32
+	Records []struct {
+		TTL   uint32
+		Value string
+	}
 }
 
 type CNAME struct {
-	Target string
 	TTL    uint32
+	Target string
 }
 
 type MX struct {
-	TTL uint32
-
 	Records []struct {
+		TTL      uint32
 		Priority uint16
 		Server   string
 	}
 }
 
 type NS struct {
-	TTL     uint32
-	Servers []string
+	Records []struct {
+		TTL    uint32
+		Server string
+	}
 }
 
 type PTR struct {
-	TTL     uint32
-	Domains []string
+	Records []struct {
+		TTL    uint32
+		Domain string
+	}
 }

@@ -3,14 +3,14 @@ package record
 func (r *PTR) Encode() []*Answer {
 	answers := []*Answer{}
 
-	for _, domain := range r.Domains {
-		vbytes := encodeDNSName(domain)
+	for _, rec := range r.Records {
+		vbytes := encodeDNSName(rec.Domain)
 
 		answer := &Answer{
 			Name:  0xC00C,
 			Type:  2,
 			Class: 1,
-			TTL:   r.TTL,
+			TTL:   rec.TTL,
 			Len:   uint16(len(vbytes)),
 			Data:  vbytes,
 		}
