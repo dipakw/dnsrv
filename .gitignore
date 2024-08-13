@@ -1,3 +1,4 @@
 /dnsrv
 /dnsrv*
 /zones.d/
+/debug/*.log

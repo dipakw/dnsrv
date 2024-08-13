@@ -81,6 +81,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.DS[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 65:
+			if record := zone.Records.HTTPS[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 

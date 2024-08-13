@@ -118,3 +118,14 @@ type DS struct {
 		Digest     string `yaml:"digest"`
 	} `yaml:"records"`
 }
+
+type HTTPS struct {
+	Records []struct {
+		TTL      uint32 `yaml:"ttl"`
+		Priority uint16 `yaml:"priority"`
+		Target   string `yaml:"target"`
+		ALPN     string `yaml:"alpn"`
+		IPv4Hint string `yaml:"ipv4hint"`
+		IPv6Hint string `yaml:"ipv6hint"`
+	} `yaml:"records"`
+}

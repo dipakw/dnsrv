@@ -30,3 +30,15 @@ func encodeDNSName(name string) []byte {
 	buffer.WriteByte(0)
 	return buffer.Bytes()
 }
+
+func encodeName(name string) []byte {
+	parts := strings.Split(name, ".")
+	var buffer bytes.Buffer
+
+	for _, part := range parts {
+		buffer.WriteByte(uint8(len(part)))
+		buffer.Write([]byte(part))
+	}
+
+	return buffer.Bytes()
+}

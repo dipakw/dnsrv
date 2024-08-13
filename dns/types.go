@@ -47,6 +47,7 @@ type Records struct {
 	CERT   map[string]*Record[record.CERT]   `yaml:"CERT"`
 	DNSKEY map[string]*Record[record.DNSKEY] `yaml:"DNSKEY"`
 	DS     map[string]*Record[record.DS]     `yaml:"DS"`
+	HTTPS  map[string]*Record[record.HTTPS]  `yaml:"HTTPS"`
 }
 
 type Zone struct {
