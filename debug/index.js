@@ -4,17 +4,17 @@ const fs = require('fs');
 // DNS server address and port (e.g., Google DNS)
 let dnsServer = '8.8.8.8';
 dnsServer = '162.159.38.13';
-dnsServer = '127.0.0.1';
+// dnsServer = '127.0.0.1';
 const dnsPort = 53;
 
 // Domain to query
 let domain = 'google.com';
 domain = 'dipak.name.np';
-domain = 'example.com';
+// domain = 'example.com';
 
 // Output file to log the raw response bytes
 let outputFile = 'dipak.HTTPS-ALL.log';
-outputFile = 'local.HTTPS-ALL.log';
+// outputFile = 'local.HTTPS-ALL.log';
 
 // Create a UDP socket
 const socket = dgram.createSocket('udp4');

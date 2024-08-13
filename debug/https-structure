@@ -45,9 +45,9 @@ i p v 6 | i p v 6
 - alpn: ID = 1
 - ipv4hint: ID = 4
 - ipv6hint: ID = 6
-
+- no-default-alpn: ID = 2 (bool)
 - mandatory: ID = 0 | mandatory=alpn,port,ipv4hint,ipv6hint
-- no-default-alpn: ID = 2
 - port: ID = 3 | port=443
+
 - esnikeys: ID = 5 | esnikeys=AAAAABBBBBCCCCCDDDDD
 - keyNN: ID = 0xF000 + NN (where NN is the custom key number)
