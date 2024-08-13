@@ -108,3 +108,13 @@ type DNSKEY struct {
 		PublicKey string `yaml:"publickey"`
 	} `yaml:"records"`
 }
+
+type DS struct {
+	Records []struct {
+		TTL        uint32 `yaml:"ttl"`
+		KeyTag     uint16 `yaml:"keytag"`
+		Algo       uint8  `yaml:"algo"`
+		DigestType uint8  `yaml:"digesttype"`
+		Digest     string `yaml:"digest"`
+	} `yaml:"records"`
+}
