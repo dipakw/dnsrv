@@ -35,16 +35,17 @@ type Record[T any] struct {
 type Records struct {
 	SOA *record.SOA `yaml:"SOA"`
 
-	A     map[string]*Record[record.A]     `yaml:"A"`
-	AAAA  map[string]*Record[record.AAAA]  `yaml:"AAAA"`
-	TXT   map[string]*Record[record.TXT]   `yaml:"TXT"`
-	CNAME map[string]*Record[record.CNAME] `yaml:"CNAME"`
-	MX    map[string]*Record[record.MX]    `yaml:"MX"`
-	NS    map[string]*Record[record.NS]    `yaml:"NS"`
-	PTR   map[string]*Record[record.PTR]   `yaml:"PTR"`
-	SRV   map[string]*Record[record.SRV]   `yaml:"SRV"`
-	CAA   map[string]*Record[record.CAA]   `yaml:"CAA"`
-	CERT  map[string]*Record[record.CERT]  `yaml:"CERT"`
+	A      map[string]*Record[record.A]      `yaml:"A"`
+	AAAA   map[string]*Record[record.AAAA]   `yaml:"AAAA"`
+	TXT    map[string]*Record[record.TXT]    `yaml:"TXT"`
+	CNAME  map[string]*Record[record.CNAME]  `yaml:"CNAME"`
+	MX     map[string]*Record[record.MX]     `yaml:"MX"`
+	NS     map[string]*Record[record.NS]     `yaml:"NS"`
+	PTR    map[string]*Record[record.PTR]    `yaml:"PTR"`
+	SRV    map[string]*Record[record.SRV]    `yaml:"SRV"`
+	CAA    map[string]*Record[record.CAA]    `yaml:"CAA"`
+	CERT   map[string]*Record[record.CERT]   `yaml:"CERT"`
+	DNSKEY map[string]*Record[record.DNSKEY] `yaml:"DNSKEY"`
 }
 
 type Zone struct {

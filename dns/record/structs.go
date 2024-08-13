@@ -98,3 +98,13 @@ type CERT struct {
 		Cert   string `yaml:"cert"`
 	} `yaml:"records"`
 }
+
+type DNSKEY struct {
+	Records []struct {
+		TTL       uint32 `yaml:"ttl"`
+		Flags     uint16 `yaml:"flags"`
+		Proto     uint8  `yaml:"proto"`
+		Algo      uint8  `yaml:"algo"`
+		PublicKey string `yaml:"publickey"`
+	} `yaml:"records"`
+}

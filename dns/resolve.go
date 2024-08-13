@@ -73,6 +73,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.CERT[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 48:
+			if record := zone.Records.DNSKEY[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 
