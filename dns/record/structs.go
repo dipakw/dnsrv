@@ -23,21 +23,21 @@ type SOA struct {
 }
 
 type A struct {
-	Records []struct {
+	Records []*struct {
 		TTL  uint32 `yaml:"ttl"`
 		IPv4 string `yaml:"ipv4"`
 	} `yaml:"records"`
 }
 
 type AAAA struct {
-	Records []struct {
+	Records []*struct {
 		TTL  uint32 `yaml:"ttl"`
 		IPv6 string `yaml:"ipv6"`
 	} `yaml:"records"`
 }
 
 type TXT struct {
-	Records []struct {
+	Records []*struct {
 		TTL   uint32 `yaml:"ttl"`
 		Value string `yaml:"value"`
 	} `yaml:"records"`
@@ -49,7 +49,7 @@ type CNAME struct {
 }
 
 type MX struct {
-	Records []struct {
+	Records []*struct {
 		TTL      uint32 `yaml:"ttl"`
 		Priority uint16 `yaml:"priority"`
 		Server   string `yaml:"server"`
@@ -57,21 +57,21 @@ type MX struct {
 }
 
 type NS struct {
-	Records []struct {
+	Records []*struct {
 		TTL    uint32 `yaml:"ttl"`
 		Server string `yaml:"server"`
 	} `yaml:"records"`
 }
 
 type PTR struct {
-	Records []struct {
+	Records []*struct {
 		TTL    uint32 `yaml:"ttl"`
 		Domain string `yaml:"domain"`
 	} `yaml:"records"`
 }
 
 type SRV struct {
-	Records []struct {
+	Records []*struct {
 		TTL      uint32 `yaml:"ttl"`
 		Priority uint16 `yaml:"priority"`
 		Weight   uint16 `yaml:"weight"`
@@ -81,7 +81,7 @@ type SRV struct {
 }
 
 type CAA struct {
-	Records []struct {
+	Records []*struct {
 		TTL   uint32 `yaml:"ttl"`
 		Flag  uint8  `yaml:"flag"`
 		Tag   string `yaml:"tag"`
@@ -90,7 +90,7 @@ type CAA struct {
 }
 
 type CERT struct {
-	Records []struct {
+	Records []*struct {
 		TTL    uint32 `yaml:"ttl"`
 		Type   uint16 `yaml:"type"`
 		KeyTag uint16 `yaml:"keytag"`
@@ -100,7 +100,7 @@ type CERT struct {
 }
 
 type DNSKEY struct {
-	Records []struct {
+	Records []*struct {
 		TTL       uint32 `yaml:"ttl"`
 		Flags     uint16 `yaml:"flags"`
 		Proto     uint8  `yaml:"proto"`
@@ -110,7 +110,7 @@ type DNSKEY struct {
 }
 
 type DS struct {
-	Records []struct {
+	Records []*struct {
 		TTL        uint32 `yaml:"ttl"`
 		KeyTag     uint16 `yaml:"keytag"`
 		Algo       uint8  `yaml:"algo"`
@@ -120,7 +120,7 @@ type DS struct {
 }
 
 type HTTPS struct {
-	Records []struct {
+	Records []*struct {
 		TTL           uint32 `yaml:"ttl"`
 		Priority      uint16 `yaml:"priority"`
 		Target        string `yaml:"target"`
@@ -141,12 +141,12 @@ type Coords struct {
 }
 
 type LOC struct {
-	Records []struct {
-		TTL uint32 `yaml:"ttl"`
-		Lat Coords `yaml:"lat"`
-		Lon Coords `yaml:"lon"`
+	Records []*struct {
+		TTL uint32  `yaml:"ttl"`
+		Lat *Coords `yaml:"lat"`
+		Lon *Coords `yaml:"lon"`
 
-		Prec struct {
+		Prec *struct {
 			Alt  float64 `yaml:"alt"`
 			Size float64 `yaml:"size"`
 			Horz float64 `yaml:"horz"`
