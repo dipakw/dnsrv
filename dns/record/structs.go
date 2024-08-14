@@ -134,23 +134,23 @@ type HTTPS struct {
 }
 
 type Coords struct {
-	Deg uint16 `yaml:"deg"`
-	Min uint8  `yaml:"min"`
-	Sec uint8  `yaml:"sec"`
-	Hem uint8  `yaml:"hem"`
+	Deg int     `yaml:"deg"`
+	Min int     `yaml:"min"`
+	Sec float64 `yaml:"sec"`
+	Hem string  `yaml:"hem"`
 }
 
 type LOC struct {
 	Records []struct {
-		TTL uint32  `yaml:"ttl"`
-		Lat *Coords `yaml:"lat"`
-		Lon *Coords `yaml:"lon"`
+		TTL uint32 `yaml:"ttl"`
+		Lat Coords `yaml:"lat"`
+		Lon Coords `yaml:"lon"`
 
-		Prec *struct {
-			Horz uint32 `yaml:"horz"`
-			Vert uint32 `yaml:"vert"`
-			Alt  uint32 `yaml:"alt"`
-			Size uint32 `yaml:"size"`
+		Prec struct {
+			Alt  float64 `yaml:"alt"`
+			Size float64 `yaml:"size"`
+			Horz float64 `yaml:"horz"`
+			Vert float64 `yaml:"vert"`
 		} `yaml:"prec"`
 	} `yaml:"records"`
 }

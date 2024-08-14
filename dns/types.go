@@ -48,6 +48,7 @@ type Records struct {
 	DNSKEY map[string]*Record[record.DNSKEY] `yaml:"DNSKEY"`
 	DS     map[string]*Record[record.DS]     `yaml:"DS"`
 	HTTPS  map[string]*Record[record.HTTPS]  `yaml:"HTTPS"`
+	LOC    map[string]*Record[record.LOC]    `yaml:"LOC"`
 }
 
 type Zone struct {
