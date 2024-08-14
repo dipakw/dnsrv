@@ -159,8 +159,6 @@ func getKeyId(key string) (byte, bool) {
 		return 0x02, true
 	case "port":
 		return 0x03, true
-	case "esnikeys":
-		return 0x05, true
 	}
 
 	return 0x00, false
