@@ -28,10 +28,6 @@ func (r *HTTPS) Encode() []*Answer {
 		if len(rec.Mandatory) > 0 {
 			mdtry := []byte{}
 
-			if len(params) > 0 {
-				params = append(params, 0x00)
-			}
-
 			for _, part := range rec.Mandatory {
 				id, ex := getKeyId(part)
 
@@ -39,20 +35,16 @@ func (r *HTTPS) Encode() []*Answer {
 					continue
 				}
 
-				mdtry = append(mdtry, 0x00, id)
+				mdtry = append(mdtry, id...)
 			}
 
 			params = append(params, 0x00, 0x00)
-			params = append(params, uint8(len(mdtry)))
+			params = append(params, intTo2Bytes(len(mdtry))...)
 			params = append(params, mdtry...)
 		}
 
 		if len(rec.ALPN) > 0 {
 			alpns := []byte{}
-
-			if len(params) > 0 {
-				params = append(params, 0x00)
-			}
 
 			for _, part := range rec.ALPN {
 				bpart := []byte(part)
@@ -60,62 +52,53 @@ func (r *HTTPS) Encode() []*Answer {
 				alpns = append(alpns, bpart...)
 			}
 
-			params = append(params, 0x01, 0x00)
-			params = append(params, uint8(len(alpns)))
+			params = append(params, 0x00, 0x01)
+			params = append(params, intTo2Bytes(len(alpns))...)
 			params = append(params, alpns...)
 		}
 
 		if rec.NoDefaultALPN {
-			if len(params) > 0 {
-				params = append(params, 0x00)
-			}
-
-			params = append(params, 0x02, 0x00, 0x00)
+			params = append(params, 0x00, 0x02, 0x00, 0x00)
 		}
 
 		if rec.Port > 0 {
-			if len(params) > 0 {
-				params = append(params, 0x00)
-			}
-
 			pdata := make([]byte, 2)
 			binary.BigEndian.PutUint16(pdata, rec.Port)
 
-			params = append(params, 0x03, 0x00)
-			params = append(params, uint8(len(pdata)))
+			params = append(params, 0x00, 0x03)
+			params = append(params, intTo2Bytes(len(pdata))...)
 			params = append(params, pdata...)
 		}
 
 		if len(rec.IPv4Hint) > 0 {
 			ipb := []byte{}
 
-			if len(params) > 0 {
-				params = append(params, 0x00)
-			}
-
 			for _, ip := range rec.IPv4Hint {
 				ipb = append(ipb, net.ParseIP(ip).To4()...)
 			}
 
-			params = append(params, 0x04, 0x00)
-			params = append(params, uint8(len(ipb)))
+			params = append(params, 0x00, 0x04)
+			params = append(params, intTo2Bytes(len(ipb))...)
 			params = append(params, ipb...)
 		}
 
 		if len(rec.IPv6Hint) > 0 {
 			ipb := []byte{}
 
-			if len(params) > 0 {
-				params = append(params, 0x00)
-			}
-
 			for _, ip := range rec.IPv6Hint {
 				ipb = append(ipb, net.ParseIP(ip).To16()...)
 			}
 
-			params = append(params, 0x06, 0x00)
-			params = append(params, uint8(len(ipb)))
+			params = append(params, 0x00, 0x06)
+			params = append(params, intTo2Bytes(len(ipb))...)
 			params = append(params, ipb...)
+		}
+
+		if rec.DOHPath != "" {
+			bdohp := []byte(rec.DOHPath)
+			params = append(params, 0x00, 0x07)
+			params = append(params, intTo2Bytes(len(bdohp))...)
+			params = append(params, bdohp...)
 		}
 
 		var buffer bytes.Buffer
@@ -127,7 +110,7 @@ func (r *HTTPS) Encode() []*Answer {
 		}
 
 		if len(params) > 0 {
-			buffer.Write([]byte{0x00, 0x00})
+			buffer.Write([]byte{0x00})
 			buffer.Write(params)
 		}
 
@@ -140,21 +123,30 @@ func (r *HTTPS) Encode() []*Answer {
 	return answers
 }
 
-func getKeyId(key string) (byte, bool) {
+func getKeyId(key string) ([]byte, bool) {
 	switch key {
 	case "alpn":
-		return 0x01, true
+		return []byte{0x00, 0x01}, true
 	case "ipv4hint":
-		return 0x04, true
+		return []byte{0x00, 0x04}, true
 	case "ipv6hint":
-		return 0x06, true
+		return []byte{0x00, 0x06}, true
 	case "mandatory":
-		return 0x00, true
+		return []byte{0x00, 0x00}, true
 	case "no-default-alpn":
-		return 0x02, true
+		return []byte{0x00, 0x02}, true
 	case "port":
-		return 0x03, true
+		return []byte{0x00, 0x03}, true
+	case "dohpath":
+		return []byte{0x00, 0x07}, true
 	}
 
-	return 0x00, false
+	return []byte{}, false
+}
+
+func intTo2Bytes(n int) []byte {
+	return []byte{
+		byte(n >> 8),   // Most significant byte
+		byte(n & 0xFF), // Least significant byte
+	}
 }

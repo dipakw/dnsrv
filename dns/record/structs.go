@@ -130,6 +130,7 @@ type HTTPS struct {
 		NoDefaultALPN bool     `yaml:"no-default-alpn"`
 		Mandatory     []string `yaml:"mandatory"`
 		Port          uint16   `yaml:"port"`
+		DOHPath       string   `yaml:"dohpath"`
 	} `yaml:"records"`
 }
 
