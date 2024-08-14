@@ -141,7 +141,7 @@ records:
         records:
           - ttl: 1
             priority: 10
-            target: .
+            target: woo.ff
             alpn:
               - h3
               - h3-29
@@ -159,6 +159,9 @@ records:
               - ipv4hint
               - ipv6hint
             port: 2921
+            # dohpath: /query
+            other:
+              key19: kvvalue
 
   LOC:
     _@:

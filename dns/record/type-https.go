@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/binary"
 	"net"
+	"regexp"
+	"strconv"
 )
 
 func (r *HTTPS) Encode() []*Answer {
@@ -101,6 +103,19 @@ func (r *HTTPS) Encode() []*Answer {
 			params = append(params, bdohp...)
 		}
 
+		for key, value := range rec.Other {
+			id, exists := getKeyId(key)
+
+			if !exists {
+				continue
+			}
+
+			valby := []byte(value)
+			params = append(params, id...)
+			params = append(params, intTo2Bytes(len(valby))...)
+			params = append(params, valby...)
+		}
+
 		var buffer bytes.Buffer
 
 		binary.Write(&buffer, binary.BigEndian, rec.Priority)
@@ -139,6 +154,16 @@ func getKeyId(key string) ([]byte, bool) {
 		return []byte{0x00, 0x03}, true
 	case "dohpath":
 		return []byte{0x00, 0x07}, true
+	}
+
+	regx := regexp.MustCompile(`^key([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-4])$`)
+
+	if regx.MatchString(key) {
+		num, err := strconv.Atoi(key[3:])
+
+		if num > 7 && err == nil {
+			return intTo2Bytes(num), true
+		}
 	}
 
 	return []byte{}, false
