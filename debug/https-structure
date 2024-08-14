@@ -12,31 +12,25 @@ pririty: 2
 partsize, part | partsize, part
 -----
 
-Extra - 00 00
+Extra - 00
+
 
 ALPN Section
 --------------
-01
-00
-Size of Data: 1 --> 6
+00 01
+Size of Data: 2 --> 6
 SIZE, VALUE | SIZE, VALUE
-
-Extra - 00 - if have ipv4
 
 IPv4 Section
 -------------
-04
-00
-Size of IPs - 1 --> 8
+00 04
+Size of IPs - 2 --> 8
 i p v 4 | i p v 4
-
-Extra - 00 - if have ipv6
 
 IPv6 Section
 ------------
-06
-00
-Size Of IPv6 - 1
+00 06
+Size Of IPv6 - 2
 
 i p v 6 | i p v 6
 
@@ -51,3 +45,5 @@ i p v 6 | i p v 6
 
 - esnikeys: ID = 5 | esnikeys=AAAAABBBBBCCCCCDDDDD
 - keyNN: ID = 0xF000 + NN (where NN is the custom key number)
+
+- dohpath : ID = 0x07
