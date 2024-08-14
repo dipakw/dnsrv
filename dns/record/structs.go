@@ -134,10 +134,10 @@ type HTTPS struct {
 }
 
 type Coords struct {
-	Degrees   uint16 `yaml:"degrees"`
-	Minutes   uint8  `yaml:"minutes"`
-	Seconds   uint8  `yaml:"seconds"`
-	Direction uint8  `yaml:"direction"`
+	Deg uint16 `yaml:"deg"`
+	Min uint8  `yaml:"min"`
+	Sec uint8  `yaml:"sec"`
+	Hem uint8  `yaml:"hem"`
 }
 
 type LOC struct {
@@ -147,10 +147,10 @@ type LOC struct {
 		Lon *Coords `yaml:"lon"`
 
 		Prec *struct {
-			Horizontal uint32 `yaml:"horizontal"`
-			Vertical   uint32 `yaml:"vertical"`
-			Altitude   uint32 `yaml:"altitude"`
-			Size       uint32 `yaml:"size"`
+			Horz uint32 `yaml:"horz"`
+			Vert uint32 `yaml:"vert"`
+			Alt  uint32 `yaml:"alt"`
+			Size uint32 `yaml:"size"`
 		} `yaml:"prec"`
 	} `yaml:"records"`
 }
