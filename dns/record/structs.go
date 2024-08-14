@@ -156,3 +156,15 @@ type LOC struct {
 		} `yaml:"prec"`
 	} `yaml:"records"`
 }
+
+type NAPTR struct {
+	Records []*struct {
+		TTL     uint32 `yaml:"ttl"`
+		Order   uint16 `yaml:"order"`
+		Pref    uint16 `yaml:"pref"`
+		Flags   string `yaml:"flags"`
+		Service string `yaml:"service"`
+		RegEx   string `yaml:"regex"`
+		Replace string `yaml:"replace"`
+	} `yaml:"records"`
+}

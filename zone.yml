@@ -202,3 +202,15 @@ records:
               size: 2
               horz: 10000
               vert: 20
+
+  NAPTR:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            order: 67
+            pref: 85
+            flags: OM,S,A
+            service: rand
+            regex: dunno
+            replace: some

@@ -21,6 +21,10 @@ func inetATon(ip string) uint32 {
 }
 
 func encodeDNSName(name string) []byte {
+	if name == "" || name == "." {
+		return []byte{byte(0)}
+	}
+
 	parts := strings.Split(name, ".")
 	var buffer bytes.Buffer
 

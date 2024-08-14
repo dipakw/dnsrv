@@ -89,6 +89,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.LOC[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 35:
+			if record := zone.Records.NAPTR[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 

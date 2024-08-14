@@ -49,6 +49,7 @@ type Records struct {
 	DS     map[string]*Record[record.DS]     `yaml:"DS"`
 	HTTPS  map[string]*Record[record.HTTPS]  `yaml:"HTTPS"`
 	LOC    map[string]*Record[record.LOC]    `yaml:"LOC"`
+	NAPTR  map[string]*Record[record.NAPTR]  `yaml:"NAPTR"`
 }
 
 type Zone struct {
