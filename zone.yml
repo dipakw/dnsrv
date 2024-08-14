@@ -208,9 +208,9 @@ records:
       default:
         records:
           - ttl: 1
-            order: 67
-            pref: 85
-            flags: OM,S,A
-            service: rand
-            regex: dunno
-            replace: some
+            order: 100
+            pref: 10
+            flags: u
+            service: "E2U+sip"
+            regex: "!^.*$!sip:info@woo.com!"
+            replace: .
