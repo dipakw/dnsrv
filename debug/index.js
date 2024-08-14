@@ -13,7 +13,7 @@ domain = 'dipak.name.np';
 // domain = 'example.com';
 
 // Output file to log the raw response bytes
-let outputFile = 'dipak.HTTPS-ALL.log';
+let outputFile = 'dipak.LOC-SW.log';
 // outputFile = 'local.HTTPS-ALL.log';
 
 // Create a UDP socket
@@ -39,7 +39,8 @@ function buildDnsQuery(domain) {
 
     // const qType = Buffer.from([0x00, what ]); // Type A query
     // const qType = Buffer.from([0x00, 0x01]); // Type A query
-    const qType = Buffer.from([0x00, 0x41]); // Type HTTPS query
+    // const qType = Buffer.from([0x00, 0x41]); // Type HTTPS query
+    const qType = Buffer.from([0x00, 0x1D]); // Type LOC query
     const qClass = Buffer.from([0x00, 0x01]); // Class IN
 
     // Build the complete DNS query packet
