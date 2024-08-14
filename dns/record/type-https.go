@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"encoding/binary"
 	"net"
-	"regexp"
-	"strconv"
 )
 
 func (r *HTTPS) Encode() []*Answer {
@@ -14,7 +12,7 @@ func (r *HTTPS) Encode() []*Answer {
 	for _, rec := range r.Records {
 		target := []byte("")
 
-		if rec.Target != "." {
+		if rec.Target != "" && rec.Target != "." {
 			target = encodeName(rec.Target)
 		}
 
@@ -136,42 +134,4 @@ func (r *HTTPS) Encode() []*Answer {
 	}
 
 	return answers
-}
-
-func getKeyId(key string) ([]byte, bool) {
-	switch key {
-	case "alpn":
-		return []byte{0x00, 0x01}, true
-	case "ipv4hint":
-		return []byte{0x00, 0x04}, true
-	case "ipv6hint":
-		return []byte{0x00, 0x06}, true
-	case "mandatory":
-		return []byte{0x00, 0x00}, true
-	case "no-default-alpn":
-		return []byte{0x00, 0x02}, true
-	case "port":
-		return []byte{0x00, 0x03}, true
-	case "dohpath":
-		return []byte{0x00, 0x07}, true
-	}
-
-	regx := regexp.MustCompile(`^key([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-4])$`)
-
-	if regx.MatchString(key) {
-		num, err := strconv.Atoi(key[3:])
-
-		if num > 7 && err == nil {
-			return intTo2Bytes(num), true
-		}
-	}
-
-	return []byte{}, false
-}
-
-func intTo2Bytes(n int) []byte {
-	return []byte{
-		byte(n >> 8),   // Most significant byte
-		byte(n & 0xFF), // Least significant byte
-	}
 }
