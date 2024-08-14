@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/binary"
 	"net"
-	"strings"
 )
 
 func (r *HTTPS) Encode() []*Answer {
@@ -26,15 +25,14 @@ func (r *HTTPS) Encode() []*Answer {
 
 		var params []byte
 
-		if rec.Mandatory != "" {
-			parts := strings.Split(rec.Mandatory, ",")
+		if len(rec.Mandatory) > 0 {
 			mdtry := []byte{}
 
 			if len(params) > 0 {
 				params = append(params, 0x00)
 			}
 
-			for _, part := range parts {
+			for _, part := range rec.Mandatory {
 				id, ex := getKeyId(part)
 
 				if !ex {
@@ -49,15 +47,14 @@ func (r *HTTPS) Encode() []*Answer {
 			params = append(params, mdtry...)
 		}
 
-		if rec.ALPN != "" {
-			parts := strings.Split(rec.ALPN, ",")
+		if len(rec.ALPN) > 0 {
 			alpns := []byte{}
 
 			if len(params) > 0 {
 				params = append(params, 0x00)
 			}
 
-			for _, part := range parts {
+			for _, part := range rec.ALPN {
 				bpart := []byte(part)
 				alpns = append(alpns, uint8(len(bpart)))
 				alpns = append(alpns, bpart...)
@@ -89,15 +86,14 @@ func (r *HTTPS) Encode() []*Answer {
 			params = append(params, pdata...)
 		}
 
-		if rec.IPv4Hint != "" {
-			ips := strings.Split(rec.IPv4Hint, ",")
+		if len(rec.IPv4Hint) > 0 {
 			ipb := []byte{}
 
 			if len(params) > 0 {
 				params = append(params, 0x00)
 			}
 
-			for _, ip := range ips {
+			for _, ip := range rec.IPv4Hint {
 				ipb = append(ipb, net.ParseIP(ip).To4()...)
 			}
 
@@ -106,15 +102,14 @@ func (r *HTTPS) Encode() []*Answer {
 			params = append(params, ipb...)
 		}
 
-		if rec.IPv6Hint != "" {
-			ips := strings.Split(rec.IPv6Hint, ",")
+		if len(rec.IPv6Hint) > 0 {
 			ipb := []byte{}
 
 			if len(params) > 0 {
 				params = append(params, 0x00)
 			}
 
-			for _, ip := range ips {
+			for _, ip := range rec.IPv6Hint {
 				ipb = append(ipb, net.ParseIP(ip).To16()...)
 			}
 

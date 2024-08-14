@@ -121,15 +121,15 @@ type DS struct {
 
 type HTTPS struct {
 	Records []*struct {
-		TTL           uint32 `yaml:"ttl"`
-		Priority      uint16 `yaml:"priority"`
-		Target        string `yaml:"target"`
-		ALPN          string `yaml:"alpn"`
-		IPv4Hint      string `yaml:"ipv4hint"`
-		IPv6Hint      string `yaml:"ipv6hint"`
-		NoDefaultALPN bool   `yaml:"no-default-alpn"`
-		Mandatory     string `yaml:"mandatory"`
-		Port          uint16 `yaml:"port"`
+		TTL           uint32   `yaml:"ttl"`
+		Priority      uint16   `yaml:"priority"`
+		Target        string   `yaml:"target"`
+		ALPN          []string `yaml:"alpn"`
+		IPv4Hint      []string `yaml:"ipv4hint"`
+		IPv6Hint      []string `yaml:"ipv6hint"`
+		NoDefaultALPN bool     `yaml:"no-default-alpn"`
+		Mandatory     []string `yaml:"mandatory"`
+		Port          uint16   `yaml:"port"`
 	} `yaml:"records"`
 }
 
