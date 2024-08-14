@@ -132,3 +132,25 @@ type HTTPS struct {
 		Port          uint16 `yaml:"port"`
 	} `yaml:"records"`
 }
+
+type Coords struct {
+	Degrees   uint16 `yaml:"degrees"`
+	Minutes   uint8  `yaml:"minutes"`
+	Seconds   uint8  `yaml:"seconds"`
+	Direction uint8  `yaml:"direction"`
+}
+
+type LOC struct {
+	Records []struct {
+		TTL uint32  `yaml:"ttl"`
+		Lat *Coords `yaml:"lat"`
+		Lon *Coords `yaml:"lon"`
+
+		Prec *struct {
+			Horizontal uint32 `yaml:"horizontal"`
+			Vertical   uint32 `yaml:"vertical"`
+			Altitude   uint32 `yaml:"altitude"`
+			Size       uint32 `yaml:"size"`
+		} `yaml:"prec"`
+	} `yaml:"records"`
+}
