@@ -19,9 +19,9 @@ GOOS=darwin GOARCH=amd64 go build -o dnsrv.mac.bin
 15. LOC
 16. NAPTR
 17. SMIMEA
+18. SSHFP
 
 ## Unsupported records
 1. URI
 2. TLSA
 3. SVCB
-4. SSHFP

@@ -113,7 +113,7 @@ records:
             type: 6
             keytag: 12345
             algo: 1
-            cert: SGksIEkgYW0gQ0VSVCE=
+            cert: SGksIEkgYW0gQ0VSVCE= # Base64 encoded
 
   DNSKEY:
     _@:
@@ -123,7 +123,7 @@ records:
             flags: 2
             proto: 3
             algo: 4
-            publickey: SGksIEkgYW0gRE5TS0VZIQ==
+            publickey: SGksIEkgYW0gRE5TS0VZIQ== # Base64 encoded
       
   DS:
     _@:
@@ -223,4 +223,13 @@ records:
             usage: 2
             selector: 4
             matchtype: 6
-            cert: ABCDEFABCDEF
+            cert: ABCDEFABCDEF # Hex string
+
+  SSHFP:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            algo: 2
+            type: 4
+            fingerprint: AB3215EA # Hex string

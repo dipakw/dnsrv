@@ -51,6 +51,7 @@ type Records struct {
 	LOC    map[string]*Record[record.LOC]    `yaml:"LOC"`
 	NAPTR  map[string]*Record[record.NAPTR]  `yaml:"NAPTR"`
 	SMIMEA map[string]*Record[record.SMIMEA] `yaml:"SMIMEA"`
+	SSHFP  map[string]*Record[record.SSHFP]  `yaml:"SSHFP"`
 }
 
 type Zone struct {

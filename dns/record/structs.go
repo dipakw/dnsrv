@@ -178,3 +178,12 @@ type SMIMEA struct {
 		Cert     string `yaml:"cert"`
 	} `yaml:"records"`
 }
+
+type SSHFP struct {
+	Records []*struct {
+		TTL         uint32 `yaml:"ttl"`
+		Algo        uint8  `yaml:"algo"`
+		Type        uint8  `yaml:"type"`
+		Fingerprint string `yaml:"fingerprint"`
+	} `yaml:"records"`
+}
