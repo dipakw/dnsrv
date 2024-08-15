@@ -53,6 +53,7 @@ type Records struct {
 	SMIMEA map[string]*Record[record.SMIMEA] `yaml:"SMIMEA"`
 	SSHFP  map[string]*Record[record.SSHFP]  `yaml:"SSHFP"`
 	SVCB   map[string]*Record[record.SVCB]   `yaml:"SVCB"`
+	TLSA   map[string]*Record[record.TLSA]   `yaml:"TLSA"`
 }
 
 type Zone struct {

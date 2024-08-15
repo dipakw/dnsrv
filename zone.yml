@@ -261,3 +261,13 @@ records:
             # dohpath: /query
             other:
               key19: kvvalue
+
+  TLSA:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            usage: 2
+            selector: 4
+            matchtype: 6
+            cert: 45ACDA6903A5 # Hex string
