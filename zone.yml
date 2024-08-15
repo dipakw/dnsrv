@@ -214,3 +214,13 @@ records:
             service: "E2U+sip"
             regex: "!^.*$!sip:info@woo.com!"
             replace: .
+
+  SMIMEA:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            usage: 2
+            selector: 4
+            matchtype: 6
+            cert: ABCDEFABCDEF

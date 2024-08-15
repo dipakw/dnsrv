@@ -93,6 +93,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.NAPTR[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 53:
+			if record := zone.Records.SMIMEA[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 

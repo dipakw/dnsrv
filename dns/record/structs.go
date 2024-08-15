@@ -168,3 +168,13 @@ type NAPTR struct {
 		Replace string `yaml:"replace"`
 	} `yaml:"records"`
 }
+
+type SMIMEA struct {
+	Records []*struct {
+		TTL      uint32 `yaml:"ttl"`
+		Usage    uint8  `yaml:"usage"`
+		Selector uint8  `yaml:"selector"`
+		Match    uint8  `yaml:"matchtype"`
+		Cert     string `yaml:"cert"`
+	} `yaml:"records"`
+}
