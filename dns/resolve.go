@@ -101,6 +101,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.SSHFP[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 64:
+			if record := zone.Records.SVCB[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 

@@ -52,6 +52,7 @@ type Records struct {
 	NAPTR  map[string]*Record[record.NAPTR]  `yaml:"NAPTR"`
 	SMIMEA map[string]*Record[record.SMIMEA] `yaml:"SMIMEA"`
 	SSHFP  map[string]*Record[record.SSHFP]  `yaml:"SSHFP"`
+	SVCB   map[string]*Record[record.SVCB]   `yaml:"SVCB"`
 }
 
 type Zone struct {

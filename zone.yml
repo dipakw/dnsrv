@@ -233,3 +233,31 @@ records:
             algo: 2
             type: 4
             fingerprint: AB3215EA # Hex string
+
+  SVCB:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            priority: 10
+            target: woo.ff
+            alpn:
+              - h3
+              - h3-29
+              - h2
+              - https/3
+            no-default-alpn: true
+            ipv4hint:
+              - 192.0.2.1
+              - 192.0.2.2
+            ipv6hint:
+              - 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+              - 2001:0f68:22a7:1234:abcd:ef01:2345:6789
+            mandatory:
+              - alpn
+              - ipv4hint
+              - ipv6hint
+            port: 2921
+            # dohpath: /query
+            other:
+              key19: kvvalue
