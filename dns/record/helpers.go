@@ -117,7 +117,7 @@ func getKeyId(key string) ([]byte, bool) {
 	if regx.MatchString(key) {
 		num, err := strconv.Atoi(key[3:])
 
-		if err == nil && num > 7 {
+		if err == nil && (num == 5 || num > 7) {
 			return intTo2Bytes(num), true
 		}
 	}
