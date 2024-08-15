@@ -109,6 +109,10 @@ func resolve(ip net.IP, host string, rectype uint16) Entry {
 			if record := zone.Records.TLSA[name]; record != nil {
 				return record.Resolve(regn)
 			}
+		case 256:
+			if record := zone.Records.URI[name]; record != nil {
+				return record.Resolve(regn)
+			}
 		}
 	}
 

@@ -213,3 +213,12 @@ type TLSA struct {
 		Cert     string `yaml:"cert"`
 	} `yaml:"records"`
 }
+
+type URI struct {
+	Records []*struct {
+		TTL      uint32 `yaml:"ttl"`
+		Priority uint16 `yaml:"priority"`
+		Weight   uint16 `yaml:"weight"`
+		Target   string `yaml:"target"`
+	} `yaml:"records"`
+}

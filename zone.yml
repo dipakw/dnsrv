@@ -271,3 +271,12 @@ records:
             selector: 4
             matchtype: 6
             cert: 45ACDA6903A5 # Hex string
+
+  URI:
+    _@:
+      default:
+        records:
+          - ttl: 1
+            target: https://uri1.woo.com
+            priority: 40
+            weight: 50
