@@ -19,8 +19,8 @@ func (r *URI) Encode() []*Answer {
 			Data:  make([]byte, 4+len(tbytes)),
 		}
 
-		binary.BigEndian.PutUint16(answer.Data[0:2], uint16(rec.Priority))
-		binary.BigEndian.PutUint16(answer.Data[2:4], uint16(rec.Weight))
+		binary.BigEndian.PutUint16(answer.Data[0:2], rec.Priority)
+		binary.BigEndian.PutUint16(answer.Data[2:4], rec.Weight)
 		copy(answer.Data[4:], tbytes)
 
 		answers = append(answers, answer)
