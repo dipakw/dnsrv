@@ -1,5 +1,5 @@
-## dns-server
-This is a simple DNS server written in pure Go. It supports a wide range of DNS records.
+## dnsrv
+This is a lightweight DNS server written in Go that uses YAML files and supports all 21 DNS record types supported by Cloudflare.
 
 ## Build
 ```bash
